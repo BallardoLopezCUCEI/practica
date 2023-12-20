@@ -40,7 +40,12 @@ class TaskController extends Controller
     public function store(StoreTaskRequest $request)
     {
         $data = $request->validated();
-        $task = Task::create($data);
+        $task = new Task;
+        $task->title =$request->title;
+        $task->description =$request->description;
+        $task->completed =$request->completed;
+        $task->user_id = $request->id_user;
+        $task->save();
         return response(new TaskResource($task), 201);
     }
 
